@@ -12,13 +12,6 @@
 			status = "okay";
 		};
 
-		mdio@90000 {
-			status = "okay";
-
-			pinctrl-0 = <&mdio_pins>;
-			pinctrl-names = "default";
-		};
-
 		counter@4a1000 {
 			compatible = "qcom,qca-gcnt";
 			reg = <0x4a1000 0x4>;
@@ -171,7 +164,7 @@
 				read-only;
 			};
 
-			partition@170000 {
+			ART: partition@170000 {
 				label = "ART";
 				reg = <0x00170000 0x00010000>;
 				read-only;
@@ -208,6 +201,37 @@
 
 &cryptobam {
 	status = "okay";
+};
+
+&mdio {
+	status = "okay";
+
+	pinctrl-0 = <&mdio_pins>;
+	pinctrl-names = "default";
+};
+
+&psgmii_phy {
+	status = "okay";
+};
+
+&ess {
+	status = "okay";
+
+	ports {
+		/delete-node/ port@1;
+		/delete-node/ port@2;
+		/delete-node/ port@3;
+	};
+};
+
+&essport4 {
+	label = "lan";
+};
+
+&gmac {
+	status = "okay";
+
+	mtd-mac-address = <&ART 0x0>;
 };
 
 &wifi0 {
