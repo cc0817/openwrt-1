@@ -10,11 +10,10 @@
 	compatible = "avm,fritzbox-4040";
 
 	aliases {
-		led-boot = &power;
+		/*led-boot = &power;
 		led-failsafe = &flash;
 		led-running = &power;
-		led-upgrade = &flash;
-		label-mac-device = &gmac0;
+		led-upgrade = &flash;*/
 	};
 
 	soc {
@@ -23,10 +22,6 @@
 		};
 
 		mdio@90000 {
-			status = "okay";
-		};
-
-		ess-psgmii@98000 {
 			status = "okay";
 		};
 
@@ -40,12 +35,6 @@
 			compatible = "qcom,tcsr";
 			reg = <0x194b000 0x100>;
 			qcom,usb-hsphy-mode-select = <TCSR_USB_HSPHY_HOST_MODE>;
-		};
-
-		ess_tcsr@1953000 {
-			compatible = "qcom,tcsr";
-			reg = <0x1953000 0x1000>;
-			qcom,ess-interface-select = <TCSR_ESS_PSGMII>;
 		};
 
 		tcsr@1957000 {
@@ -69,24 +58,6 @@
 		watchdog@b017000 {
 			status = "okay";
 		};
-
-		qca8075: ess-switch@c000000 {
-			status = "okay";
-
-			#gpio-cells = <2>;
-			gpio-controller;
-
-			enable-usb-power {
-				gpio-hog;
-				line-name = "enable USB3 power";
-				gpios = <7 GPIO_ACTIVE_HIGH>;
-				output-high;
-			};
-		};
-
-		edma@c080000 {
-			status = "okay";
-		};
 	};
 
 	keys {
@@ -105,7 +76,7 @@
 		};
 	};
 
-	switch-leds {
+	/*switch-leds {
 		compatible = "gpio-leds";
 
 		wlan {
@@ -138,7 +109,7 @@
 			label = "fritz4040:amber:info";
 			gpios = <&qca8075 15 GPIO_ACTIVE_HIGH>;
 		};
-	};
+	};*/
 };
 
 &tlmm {

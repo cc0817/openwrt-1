@@ -34,12 +34,6 @@
 			qcom,wifi_glb_cfg = <TCSR_WIFI_GLB_CFG>;
 		};
 
-		ess_tcsr@1953000 {
-			compatible = "qcom,tcsr";
-			reg = <0x1953000 0x1000>;
-			qcom,ess-interface-select = <TCSR_ESS_PSGMII_RGMII5>;
-		};
-
 		tcsr@1957000 {
 			compatible = "qcom,tcsr";
 			reg = <0x1957000 0x100>;
@@ -52,19 +46,6 @@
 
 		watchdog@b017000 {
 			status = "okay";
-		};
-
-		ess-switch@c000000 {
-			switch_mac_mode = <0x3>; /* mac mode for RGMII RMII */
-			switch_lan_bmp = <0x0>; /* lan port bitmap */
-			switch_wan_bmp = <0x10>; /* wan port bitmap */
-		};
-
-		edma@c080000 {
-			status = "okay";
-			phy-mode = "rgmii-rxid";
-			qcom,num_gmac = <1>;
-			qcom,single-phy;
 		};
 	};
 
@@ -258,10 +239,4 @@
 &wifi1 {
 	status = "okay";
 	qcom,ath10k-calibration-variant = "AVM-FRITZRepeater-1200";
-};
-
-&gmac0 {
-	qcom,phy_mdio_addr = <0>;
-	qcom,poll_required = <1>;
-	vlan_tag = <0 0x20>;
 };

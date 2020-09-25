@@ -32,7 +32,6 @@
 		led-failsafe = &led_power_orange;
 		led-running = &led_power_white;
 		led-upgrade = &led_power_blue;
-		label-mac-device = &gmac0;
 	};
 
 	soc {
@@ -53,12 +52,6 @@
 			status = "okay";
 		};
 
-		ess_tcsr@1953000 {
-			compatible = "qcom,tcsr";
-			reg = <0x1953000 0x1000>;
-			qcom,ess-interface-select = <TCSR_ESS_PSGMII>;
-		};
-
 		tcsr@1957000 {
 			compatible = "qcom,tcsr";
 			reg = <0x1957000 0x100>;
@@ -70,19 +63,6 @@
 		};
 
 		watchdog@b017000 {
-			status = "okay";
-		};
-
-		ess-switch@c000000 {
-			status = "okay";
-			switch_lan_bmp = <0x1c>;
-		};
-
-		ess-psgmii@98000 {
-			status = "okay";
-		};
-
-		edma@c080000 {
 			status = "okay";
 		};
 
@@ -400,14 +380,6 @@
 	pinctrl-0 = <&mdio_pins>;
 	pinctrl-names = "default";
 	reset-gpios = <&tlmm 47 GPIO_ACTIVE_LOW>;
-};
-
-&gmac0 {
-	mtd-mac-address = <&orgdata 0x20>;
-};
-
-&gmac1 {
-	mtd-mac-address = <&orgdata 0x20>;
 };
 
 &usb3_ss_phy {
