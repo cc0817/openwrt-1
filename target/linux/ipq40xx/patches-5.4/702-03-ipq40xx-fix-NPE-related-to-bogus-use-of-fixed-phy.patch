@@ -1,0 +1,33 @@
+From eb0dc4fe74abb95f78754898c15ed12520e2b98c Mon Sep 17 00:00:00 2001
+From: Christian Lamparter <chunkeey@gmail.com>
+Date: Sat, 28 Mar 2020 13:24:38 +0100
+Subject: [PATCH] ipq40xx: fix NPE related to bogus use of fixed phy
+
+This patch fixes a not-fully-debugged NPE that occures because
+a fixed-phy is told to resume, which it obviously can't.
+
+Signed-off-by: Christian Lamparter <chunkeey@gmail.com>
+---
+ drivers/net/phy/phy.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -52,13 +52,15 @@ static const char *phy_state_to_str(enum
+ 
+ static void phy_link_up(struct phy_device *phydev)
+ {
+-	phydev->phy_link_change(phydev, true, true);
++	if (phydev->phy_link_change)
++		phydev->phy_link_change(phydev, true, true);
+ 	phy_led_trigger_change_speed(phydev);
+ }
+ 
+ static void phy_link_down(struct phy_device *phydev, bool do_carrier)
+ {
+-	phydev->phy_link_change(phydev, false, do_carrier);
++	if (phydev->phy_link_change)
++		phydev->phy_link_change(phydev, false, do_carrier);
+ 	phy_led_trigger_change_speed(phydev);
+ }
+ 
